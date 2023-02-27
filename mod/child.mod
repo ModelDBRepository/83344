@@ -13,7 +13,7 @@
  }
  
  VERBATIM
- static subtree(sec, sym) Section* sec; Symbol* sym; {
+ static void subtree(Section* sec, Symbol* sym) {
  	Section* child;
  
  	nrn_pushsec(sec);	/* move these three (sec becomes child) */
@@ -24,13 +24,15 @@
  		subtree(child, sym);
  	}
  }
+ #ifndef NRN_VERSION_GTEQ_8_2_0
+ Section* chk_access();
+ Symbol* hoc_parse_stmt();
+ #endif
  ENDVERBATIM
  
  PROCEDURE subtree_traverse_all() {
    VERBATIM
    {
- 	Section* chk_access();
- 	Symbol* hoc_parse_stmt();
  	Symlist* symlist = (Symlist*)0;
  	subtree(chk_access(), hoc_parse_stmt(gargstr(1), &symlist));
  	/* if following not executed (ie hoc error in statement),
