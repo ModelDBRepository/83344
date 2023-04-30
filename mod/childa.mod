@@ -13,12 +13,15 @@ NEURON {
 }
 
 VERBATIM
+#ifdef NRN_MECHANISM_DATA_IS_SOA
+#define get_child(sec) _nrn_mechanism_get_child(sec)
+#define get_sibling(sec) _nrn_mechanism_get_sibling(sec)
+#else
+#define get_child(sec) sec->child
+#define get_sibling(sec) sec->sibling
+#endif
 static void subtree(Section* sec, Symbol* sym) {
-        Section* child;
-
- 
-
-        for (child = sec->child; child; child = child->sibling) {
+        for (Section* child = get_child(sec); child; child = get_sibling(child)) {
        nrn_pushsec(child);       /* move these three (sec becomes child) */
         hoc_run_stmt(sym);      /* into the loop to do only the first level */
         nrn_popsec(); 
