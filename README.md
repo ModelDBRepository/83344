@@ -56,7 +56,9 @@ andreas.schaefer at crick.ac.uk
 ---
 
 Changelog
+---
 2023-02-28: updated for C++ compatibility (NEURON 9+)
+
 2023-04-20: updated for SoA data compatibility (NEURON 9+)
 
 2025-05-27 – Standardized to Markdown.
